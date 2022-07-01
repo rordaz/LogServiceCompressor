@@ -1,4 +1,4 @@
-# LogFilesServiceCompressor
+# LogServiceCompressor
 
 Windows Service that zip logs files on schedule, created zip packages per month. Optionally uploads zip files to Azure Blob.
 
