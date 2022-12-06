@@ -50,7 +50,8 @@ namespace LogFilesServiceCompressor
             // this is the day that is running
             RunDate = DateTime.Now;
             #if DEBUG
-            RunDate = new DateTime(2021, 04, 07, 2, 5, 0);
+            //RunDate = new DateTime(2022, 12, 07, 2, 5, 0);
+            RunDate = DateTime.Now;
             #endif
 
             #region AppSettings

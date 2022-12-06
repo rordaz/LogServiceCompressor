@@ -180,30 +180,40 @@ namespace LogFilesServiceCompressor
             bool Empty = true;
             Console.WriteLine("Getting list of Files created from {0} to {1}", StartDate, EndDate);
             LogHelper.Info("Getting list of Files created from " + StartDate + " to " + EndDate);
-            foreach (var file in Directory.GetFiles(Dir, "*", SearchOption.AllDirectories))
+            try
             {
-                DateTime FileTimeStamp = DateTime.Now;
-                if (logArchiver.UseDateModified)
-                    FileTimeStamp = File.GetLastWriteTime(file);
-                else
-                    FileTimeStamp = File.GetCreationTime(file);
-          
-                if (FileTimeStamp >= StartDate && FileTimeStamp < EndDate)
+                foreach (var file in Directory.GetFiles(Dir, "*", SearchOption.AllDirectories))
                 {
-                    fils.Add(file);
-                    Empty = false;
-                }
-            }
+                    DateTime FileTimeStamp = DateTime.Now;
+                    if (logArchiver.UseDateModified)
+                        FileTimeStamp = File.GetLastWriteTime(file);
+                    else
+                        FileTimeStamp = File.GetCreationTime(file);
 
-            if (Empty)
+                    if (FileTimeStamp >= StartDate && FileTimeStamp < EndDate)
+                    {
+                        fils.Add(file);
+                        Empty = false;
+                    }
+                }
+
+                if (Empty)
+                {
+                    Console.WriteLine("No Files were found to process");
+                    LogHelper.Info("No Files were found to process");
+                    return fils;
+                }
+                Console.WriteLine("Found {0} Files", fils.Count);
+                LogHelper.Info("Found " + fils.Count + " Files");
+                return fils; // return file list
+            }
+            catch (Exception e)
             {
-                Console.WriteLine("No Files were found to process");
-                LogHelper.Info("No Files were found to process");
+                Console.WriteLine("Error while accessing source folder - Message: {0}", e.Message);
+                LogHelper.Info("Error while accessing source folder - Message: " + e.Message);
                 return fils;
             }
-            Console.WriteLine("Found {0} Files", fils.Count);
-            LogHelper.Info("Found " + fils.Count + " Files");
-            return fils; // return file list
+            
         }
 
         public static void UnZipFiles(string zipPathAndFile, string outputFolder, string password, bool deleteZipFile)
@@ -293,6 +303,7 @@ namespace LogFilesServiceCompressor
                     {
                         // You may check error code to filter some exceptions, not every error
                         // can be recovered.
+
                         Thread.Sleep(DelayOnRetry);
                     }
                 }
