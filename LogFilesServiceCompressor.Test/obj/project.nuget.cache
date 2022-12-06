@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "q1Sirx+5aaqTWretQy/JqL0xgG+oNUwaWlMrcIkZx68tQl6gHbbzJqeXaA1PyLz7Lij5PPoSHDsS3p5LhHkGvQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\H508391\\source\\repos\\LogServiceCompressor\\LogFilesServiceCompressor.Test\\LogFilesServiceCompressor.Test.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\H508391\\.nuget\\packages\\microsoft.codecoverage\\16.5.0\\microsoft.codecoverage.16.5.0.nupkg.sha512",
+    "C:\\Users\\H508391\\.nuget\\packages\\microsoft.net.test.sdk\\16.5.0\\microsoft.net.test.sdk.16.5.0.nupkg.sha512",
+    "C:\\Users\\H508391\\.nuget\\packages\\nunit\\3.12.0\\nunit.3.12.0.nupkg.sha512",
+    "C:\\Users\\H508391\\.nuget\\packages\\nunit3testadapter\\3.16.1\\nunit3testadapter.3.16.1.nupkg.sha512"
+  ],
+  "logs": []
+}
