@@ -144,13 +144,5 @@ namespace LogFilesServiceCompressor
             Console.Out.WriteLine("Finished compressing files");
             return true;
         }
-
-        //public void Start() {
-        //    LogArchiver logArchiver = new LogArchiver();
-        //}
-        //public void Stop() {
-        //    //ArrayList fileList = ZipUtil.GenerateFileListByDate(inputFolderPath, logArchiver);
-        //    //ZipUtil.DeleteSourceFiles(fileList);
-        //}
     }
 }
