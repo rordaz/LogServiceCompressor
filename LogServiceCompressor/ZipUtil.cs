@@ -9,8 +9,18 @@ namespace LogFilesServiceCompressor
 {
     public static class ZipUtil
     {
-        public static void ZipFiles(string inputFolderPath, string outputPathAndFile, string password = null, bool cleanDir = false,LogArchiver logArchiver = null, bool LimitResourceToSingleCore = true)
+        public static void ZipFiles(string inputFolderPath, string outputPathAndFile, LogArchiver logArchiver, string password = null, bool LimitResourceToSingleCore = true)
         {
+            if (string.IsNullOrEmpty(inputFolderPath))
+            {
+                throw new ArgumentException($"'{nameof(inputFolderPath)}' cannot be null or empty.", nameof(inputFolderPath));
+            }
+
+            if (string.IsNullOrEmpty(outputPathAndFile))
+            {
+                throw new ArgumentException($"'{nameof(outputPathAndFile)}' cannot be null or empty.", nameof(outputPathAndFile));
+            }
+
             if (logArchiver == null)
             {
                 return;    
@@ -153,7 +163,7 @@ namespace LogFilesServiceCompressor
             return fils; // return file list
         }
 
-        private static ArrayList GenerateFileListByDate(string Dir, LogArchiver logArchiver)
+        public static ArrayList GenerateFileListByDate(string Dir, LogArchiver logArchiver)
         {
             // Subtract the buffer Days
             DateTime EndDate = logArchiver.RunDate.Date;

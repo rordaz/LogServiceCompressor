@@ -9,6 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="TestFiles\cantrbry\**" />
+    <EmbeddedResource Remove="TestFiles\cantrbry\**" />
+    <None Remove="TestFiles\cantrbry\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="NUnit" Version="3.12.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
@@ -21,6 +27,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LogServiceCompressor\LogFilesServiceCompressor.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="TestFiles\cantrbry.zip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

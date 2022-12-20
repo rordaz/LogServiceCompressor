@@ -140,7 +140,7 @@ namespace LogFilesServiceCompressor
 
         public bool ZipLogs()
         {
-            ZipUtil.ZipFiles(SourceLogFiles, ZipFileDirectory, null,RemoveOriginalFiles,this, LimitResourceToSingleCore);
+            ZipUtil.ZipFiles(SourceLogFiles, ZipFileDirectory,this,null,LimitResourceToSingleCore);
             Console.Out.WriteLine("Finished compressing files");
             return true;
         }
