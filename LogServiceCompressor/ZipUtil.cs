@@ -134,7 +134,7 @@ namespace LogFilesServiceCompressor
             }
         }
 
-        private static ArrayList GenerateFileList(string Dir)
+        public static ArrayList GenerateFileList(string Dir)
         {
             ArrayList fils = new ArrayList();
             bool Empty = true;
