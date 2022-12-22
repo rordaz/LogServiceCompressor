@@ -2,11 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Security.Cryptography;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace LogFilesServiceCompressor
 {
@@ -14,8 +14,8 @@ namespace LogFilesServiceCompressor
     {
         private string _testDir = @"C:\Test";
         private string _testFiles = @"TestFiles\cantrbry.zip";
-        private string _zipFileDirectory = @"C:\TestZip\cantrbry.zip";
-        private string _zipMd5 = "38fe67eb84dd0c08591a158d42d611f0";
+        private string _zipFilePath = @"C:\TestZip\cantrbry.zip";
+        private string _zipDirUnpack = @"C:\TestZipUnpack";
         private LogArchiver _lg = new LogArchiver();
 
         public LogArchiverTest()
@@ -42,20 +42,25 @@ namespace LogFilesServiceCompressor
         public void ShouldCreateZipFile()
         {
             // compare the files added to the files versus the originals
-            ZipUtil.ZipFiles(_testDir, _zipFileDirectory, _lg,null, true);
+            ZipUtil.ZipFiles(_testDir, _zipFilePath, _lg,null, true);
             // Check Contents of the zip file
             //Assert.AreEqual(_zipMd5, ComputeMD5(_zipFileDirectory));
 
-            Assert.AreEqual(true, File.Exists(_zipFileDirectory));
+            Assert.AreEqual(true, File.Exists(_zipFilePath));
 
         }
 
-        [Test, Order(5)]
+        [Test, Order(3)]
         public void ShouldValidateZipFile()
         {
-            TestUtilities.UnZipFiles(_testFiles, _zipFileDirectory);
+            TestUtilities.UnZipFiles(_zipFilePath, _zipDirUnpack);
+            var dirUnpack = ZipUtil.GenerateFileList(_zipDirUnpack);
+            var dirOriginalFiles = ZipUtil.GenerateFileList(_testDir);
+            bool direqual = TestUtilities.CompareDirectories(dirOriginalFiles, dirUnpack);
+            Assert.AreEqual(true, direqual);
         }
 
+ 
         //[Test, Order(3)]
         //public void ShouldAddFilesToExistingZipFile()
         //{
@@ -94,22 +99,10 @@ namespace LogFilesServiceCompressor
             _lg.RemoveOriginalFiles = false;
             _lg.RunDate = DateTime.Now;
             _lg.SourceLogFiles = _testFiles;
-            _lg.ZipFileDirectory = _zipFileDirectory;
+            _lg.ZipFileDirectory = _zipFilePath;
         }
 
-        private string ComputeMD5(string file)
-        {
-            string md5Value = String.Empty;
-            byte[] md5hash;
-            using (var md5 = MD5.Create())
-            {
-                using (var stream = File.OpenRead(file))
-                {
-                    md5hash = md5.ComputeHash(stream);
-                }
-            }
-            return md5Value = BitConverter.ToString(md5hash).Replace("-", String.Empty).ToLowerInvariant();
-        }
+        
 
 
     }
