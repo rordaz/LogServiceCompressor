@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using ICSharpCode.SharpZipLib.Zip;
@@ -71,6 +73,31 @@ namespace LogFilesServiceCompressor
             
             if (deleteZipFile)
                 File.Delete(zipPathAndFile);
+        }
+
+        public static bool CompareDirectories(ArrayList dirOriginalFiles, ArrayList dirUnpack)
+        {
+            bool result = false;
+            //foreach (var item in dirOriginalFiles)
+            //{
+
+            //}
+           result = dirOriginalFiles.Equals(dirUnpack);
+            return result;
+        }
+
+        public string ComputeMD5(string file)
+        {
+            string md5Value = String.Empty;
+            byte[] md5hash;
+            using (var md5 = MD5.Create())
+            {
+                using (var stream = File.OpenRead(file))
+                {
+                    md5hash = md5.ComputeHash(stream);
+                }
+            }
+            return md5Value = BitConverter.ToString(md5hash).Replace("-", String.Empty).ToLowerInvariant();
         }
     }
 }
