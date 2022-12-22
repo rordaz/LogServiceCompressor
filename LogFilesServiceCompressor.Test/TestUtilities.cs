@@ -77,16 +77,21 @@ namespace LogFilesServiceCompressor
 
         public static bool CompareDirectories(ArrayList dirOriginalFiles, ArrayList dirUnpack)
         {
-            bool result = false;
-            //foreach (var item in dirOriginalFiles)
-            //{
+            if (dirOriginalFiles.Count != dirUnpack.Count)
+                return false;
 
-            //}
-           result = dirOriginalFiles.Equals(dirUnpack);
-            return result;
+            dirOriginalFiles.Sort();
+            dirUnpack.Sort();
+
+            for (int i = 0; i < dirOriginalFiles.Count; i++)
+            {
+                if (ComputeMD5(dirOriginalFiles[i].ToString()) != ComputeMD5(dirUnpack[i].ToString()))
+                    return false;
+            }
+            return true;
         }
 
-        public string ComputeMD5(string file)
+        public static string ComputeMD5(string file)
         {
             string md5Value = String.Empty;
             byte[] md5hash;
